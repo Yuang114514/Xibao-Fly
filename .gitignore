@@ -1,7 +1,1 @@
-.gradle
-.idea
-build
-run
-*/.gradle
-*/build
-*/run
+.*/
