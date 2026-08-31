@@ -3,27 +3,24 @@
 	"id": "xibao-fly",
 	"version": "${version}",
 	"name": "Xibao Fly",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Fabric 26.2 port of Xibao++.",
 	"authors": [
-		"Me!"
+		"TeaCon",
+		"GregTao",
+		"Yuang2714"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"email": "若有侵权请发邮件到achilles.hero.way@outlook.com请求删除"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/xibao-fly/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"cn.yuang2714.xibaofly.XibaoFly"
-		],
 		"client": [
 			"cn.yuang2714.xibaofly.client.XibaoFlyClient"
 		]
 	},
 	"mixins": [
-		"xibao-fly.mixins.json",
 		{
 			"config": "xibao-fly.client.mixins.json",
 			"environment": "client"
@@ -34,5 +31,6 @@
 		"minecraft": "~26.2",
 		"java": ">=25",
 		"fabric-api": "*"
-	}
+	},
+	"accessWidener": "xibao-fly.accesswidener"
 }

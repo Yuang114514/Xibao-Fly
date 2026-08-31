@@ -20,6 +20,8 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
+
+    accessWidenerPath = file("src/client/resources/xibao-fly.accesswidener")
 }
 
 dependencies {
