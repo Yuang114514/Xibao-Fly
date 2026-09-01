@@ -37,7 +37,7 @@ public class FileBasedConfig {
             current.addProperty(key, value);
             write(current);
         } catch (Exception e) {
-            XibaoFlyClient.LOGGER.error("Cannot write config to file.", e);
+            XibaoFlyClient.LOGGER.warn("write config failed.");
         }
     }
     
@@ -45,7 +45,7 @@ public class FileBasedConfig {
         try {
             return read().get(key).getAsString();
         } catch (Exception e) {
-            XibaoFlyClient.LOGGER.error("Cannot read config file.", e);
+            XibaoFlyClient.LOGGER.warn("read config failed.");
             return def;
         }
     }

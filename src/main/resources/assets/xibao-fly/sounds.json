@@ -1,0 +1,14 @@
+{
+	"xibao": {
+		"sounds": [
+			"xibao-fly:chunjiexuqu",
+			"xibao-fly:haoyunlai",
+			"xibao-fly:the_magnificent_seven"
+		]
+	},
+	"beibao": {
+		"sounds": [
+			"xibao-fly:yijianmei"
+		]
+	}
+}

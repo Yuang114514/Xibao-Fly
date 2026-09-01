@@ -8,16 +8,28 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.DisconnectionDetails;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.Music;
+import org.jspecify.annotations.Nullable;
 
 public class XibaoDisconnectedScreen extends DisconnectedScreen {
+    private final Identifier background;
+    private final Music bgm;
     public XibaoDisconnectedScreen(Screen parent, Component title, DisconnectionDetails details, Component buttonText) {
         super(parent, title, details, buttonText);
+        background = Identifier.fromNamespaceAndPath(
+                "xibao-fly",
+                "textures/backgrounds/" + FileBasedConfig.get("background", "xibao") + ".png"
+        );
+        bgm = switch (FileBasedConfig.get("bgm", "xibao")) {
+            case "beibao" -> XibaoFlyClient.beibao;
+            case "xibao" -> XibaoFlyClient.xibao;
+            default -> throw new NullPointerException("Cannot get BGM!");
+        };
     }
     
     @Override
     protected void init() {
         super.init();
-        
     }
     
     @Override
@@ -30,10 +42,7 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
         //背景图片
         graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
-                Identifier.fromNamespaceAndPath(
-                        "xibao-fly",
-                        "textures/backgrounds/" + FileBasedConfig.get("background", "xibao") + ".png"
-                ),
+                background,
                 0,
                 0,
                 0,
@@ -45,5 +54,10 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
         );
         
         super.extractRenderState(graphics, mouseX, mouseY, a);
+    }
+    
+    @Override
+    public @Nullable Music getBackgroundMusic() {
+        return bgm;
     }
 }
