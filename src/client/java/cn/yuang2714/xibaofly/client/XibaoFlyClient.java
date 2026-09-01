@@ -31,9 +31,9 @@ public class XibaoFlyClient implements ClientModInitializer {
         
         SoundEvent xibaoEvent = Registry.register(
                 BuiltInRegistries.SOUND_EVENT,
-                Identifier.fromNamespaceAndPath(MOD_ID, "xibao"),
+                Identifier.fromNamespaceAndPath(MOD_ID, "bgm.xibao"),
                 SoundEvent.createVariableRangeEvent(
-                        Identifier.fromNamespaceAndPath(MOD_ID, "xibao")
+                        Identifier.fromNamespaceAndPath(MOD_ID, "bgm.xibao")
                 )
         );
         XibaoFlyClient.xibao = new Music(
@@ -45,9 +45,9 @@ public class XibaoFlyClient implements ClientModInitializer {
         
         SoundEvent beibaoEvent = Registry.register(
                 BuiltInRegistries.SOUND_EVENT,
-                Identifier.fromNamespaceAndPath(MOD_ID, "beibao"),
+                Identifier.fromNamespaceAndPath(MOD_ID, "bgm.beibao"),
                 SoundEvent.createVariableRangeEvent(
-                        Identifier.fromNamespaceAndPath(MOD_ID, "beibao")
+                        Identifier.fromNamespaceAndPath(MOD_ID, "bgm.beibao")
                 )
         );
         XibaoFlyClient.beibao = new Music(

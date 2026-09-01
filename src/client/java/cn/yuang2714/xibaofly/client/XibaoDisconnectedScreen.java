@@ -9,6 +9,7 @@ import net.minecraft.network.DisconnectionDetails;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.Music;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class XibaoDisconnectedScreen extends DisconnectedScreen {
@@ -18,9 +19,9 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
         super(parent, title, details, buttonText);
         background = Identifier.fromNamespaceAndPath(
                 "xibao-fly",
-                "textures/backgrounds/" + FileBasedConfig.get("background", "xibao") + ".png"
+                "textures/backgrounds/" + FileBasedConfig.get("stage", "xibao") + ".png"
         );
-        bgm = switch (FileBasedConfig.get("bgm", "xibao")) {
+        bgm = switch (FileBasedConfig.get("stage", "xibao")) {
             case "beibao" -> XibaoFlyClient.beibao;
             case "xibao" -> XibaoFlyClient.xibao;
             default -> throw new NullPointerException("Cannot get BGM!");
@@ -33,7 +34,7 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
     }
     
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         //Do nothing
     }
     

@@ -1,14 +1,15 @@
 {
-	"xibao": {
+	"bgm.xibao": {
 		"sounds": [
-			"xibao-fly:chunjiexuqu",
-			"xibao-fly:haoyunlai",
-			"xibao-fly:the_magnificent_seven"
+			"xibao-fly:bgm/chunjiexuqu",
+			"xibao-fly:bgm/haoyunlai",
+			"xibao-fly:bgm/the_magnificent_seven"
 		]
 	},
-	"beibao": {
+	"bgm.beibao": {
+		"subtitle": "sound.xibao-fly.yijianmei",
 		"sounds": [
-			"xibao-fly:yijianmei"
+			"xibao-fly:bgm/yijianmei"
 		]
 	}
 }
