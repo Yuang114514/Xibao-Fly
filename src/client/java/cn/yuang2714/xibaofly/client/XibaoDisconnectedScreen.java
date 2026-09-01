@@ -31,6 +31,7 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
     @Override
     protected void init() {
         super.init();
+        initParticles(width, height);
     }
     
     @Override
@@ -54,11 +55,46 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
                 height
         );
         
+        //粒子
+        ParticleManager.render(graphics);
+        
         super.extractRenderState(graphics, mouseX, mouseY, a);
     }
     
     @Override
     public @Nullable Music getBackgroundMusic() {
         return bgm;
+    }
+    
+    @Override
+    public void onClose() {
+        ParticleManager.clear();
+    }
+    
+    @Override
+    public void tick() {
+        super.tick();
+        ParticleManager.tick();
+    }
+    
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        ParticleManager.clear();
+        initParticles(width, height);
+    }
+    
+    private static void initParticles(int width, int height) {
+        Identifier[] particleTextures = switch (FileBasedConfig.get("stage", "xibao")) {
+            case "xibao" -> new Identifier[] {
+                    Identifier.fromNamespaceAndPath(XibaoFlyClient.MOD_ID, "textures/particles/red_snow.png"),
+                    Identifier.fromNamespaceAndPath(XibaoFlyClient.MOD_ID, "textures/particles/yellow_snow.png"),
+            };
+            case "beibao" -> new Identifier[] {
+                    Identifier.fromNamespaceAndPath(XibaoFlyClient.MOD_ID, "textures/particles/white_snow.png"),
+            };
+            default -> throw new NullPointerException("Cannot locate Particle!");
+        };
+        ParticleManager.init(width, height, particleTextures);
     }
 }
