@@ -9,6 +9,24 @@ import java.util.List;
 import java.util.Random;
 
 public class ParticleManager {
+    private static final int[] THROWING_TARGETS = new int[] { //鼠标点击时粒子的动量
+            -100,
+            -97,
+            -90,
+            -85,
+            -70,
+            -50,
+            -20,
+            -5,
+            5,
+            20,
+            50,
+            70,
+            85,
+            90,
+            97,
+            100
+    };
     private static final Random rng = new Random();
     private static List<Particle> particles;
     private static boolean isSetup;
@@ -25,6 +43,8 @@ public class ParticleManager {
     
     public static void tick() {
         particles.forEach(p -> p.tick(rng));
+        
+        //控制雪花的数量
         if (!isSetup) {
             particles.add(new Particle(
                     textures[rng.nextInt(0, textures.length)],
@@ -32,6 +52,16 @@ public class ParticleManager {
                     width,
                     height
             ));
+        }
+        
+        XibaoFlyClient.LOGGER.info("Ticking. " + particles.size() + "密度：" + width * height / 1024);
+    }
+    
+    public static void onMouseClick(int eventX, int eventY) {
+        for (int i = 0; i < 16; i++) {
+            Particle chosen = new Particle(textures[rng.nextInt(0, textures.length)], rng, width, height);
+            chosen.onMouseClick(eventX, eventY, (THROWING_TARGETS[i] / 3) + rng.nextInt(-5, 6));
+            particles.add(chosen);
         }
     }
     
@@ -45,8 +75,13 @@ public class ParticleManager {
         isSetup = false;
     }
     
+    public static void clearParticles() {
+        particles.clear();
+    }
+    
     static class Particle {
-        int x, y, center, range; //X坐标、Y坐标、正弦函数的中心、正弦函数的摆幅
+        int x, y, center, range, target, clickY; //X坐标、Y坐标、正弦函数的中心、正弦函数的摆幅，被掷出时的目标x增量
+        boolean isCreatedViaClick;
         final Identifier texture;
         final int width, height;
         
@@ -55,24 +90,46 @@ public class ParticleManager {
             this.width = width;
             this.height = height;
             
-            y = rng.nextInt(-100, 100);
+            y = rng.nextInt(-200, 0);
             x = rng.nextInt(0, width); //随机X值
             center = x;
             range = rng.nextInt(-2, 3);
         }
         
         public void tick(Random rng) {
-            y++; //更新Y值
+            //更新Y值
+            if (target == 0){
+                y++;
+            } else {
+                y += rng.nextInt(0, 3);
+            }
             
-            x = (int) (center + range * Math.sin((double) y / 8)); //更新X值，应用正弦摆动
+            //更新X值，应用正弦摆动，应用指数函数模拟的抛物
+            x = (int) (center + range * Math.sin((double) y / 8))
+                    + ( y > 0 ? (target * (y - clickY) / ((y - clickY) + 8)) : 0);
             
             center += rng.nextInt(-1, 2); //随机扰动正弦函数的参数
             range = rng.nextInt(-1, 2);
             
-            if (y >= height) {
-                isSetup = true;
-                y = rng.nextInt(- 100, 100);
+            if (y >= height) { //越界
+                if (!isCreatedViaClick) isSetup = true;
+                y = rng.nextInt(-200, 0);
+                center = rng.nextInt(0, width);
+                target = 0;
+                clickY = 0;
+                isCreatedViaClick = false;
             }
+            
+            if (isCreatedViaClick) XibaoFlyClient.LOGGER.info("Ticking click-created particle " + hashCode());
+        }
+        
+        public void onMouseClick(int eventX, int eventY, int targetX) {
+            x = eventX;
+            y = eventY;
+            clickY = eventY;
+            center = eventX;
+            target = targetX;
+            isCreatedViaClick = true;
         }
         
         public void render(GuiGraphicsExtractor graphics) {

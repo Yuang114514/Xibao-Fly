@@ -4,6 +4,7 @@ import cn.yuang2714.xibaofly.client.config.FileBasedConfig;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.DisconnectedScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.DisconnectionDetails;
 import net.minecraft.network.chat.Component;
@@ -96,5 +97,11 @@ public class XibaoDisconnectedScreen extends DisconnectedScreen {
             default -> throw new NullPointerException("Cannot locate Particle!");
         };
         ParticleManager.init(width, height, particleTextures);
+    }
+    
+    @Override
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        ParticleManager.onMouseClick((int) event.x(), (int) event.y());
+        return super.mouseClicked(event, doubleClick);
     }
 }
