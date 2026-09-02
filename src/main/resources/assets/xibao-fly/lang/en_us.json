@@ -2,5 +2,13 @@
 	"xibao-fly.bgm.yijianmei": "一剪梅",
 	"xibao-fly.bgm.chunjiexuqu": "春节序曲",
 	"xibao-fly.bgm.haoyunlai": "好运来",
-	"xibao-fly.bgm.the_magnificent_seven": "The Magnificent Seven"
+	"xibao-fly.bgm.the_magnificent_seven": "The Magnificent Seven",
+	"gui.xibao-fly.stop_music": "Stop Music",
+	"gui.xibao-fly.play_music": "Play Music",
+	"gui.xibao-fly.hide": "Hide %s",
+	"gui.xibao-fly.clear": "Clear %s",
+	"gui.xibao-fly.render": "Show %s",
+	"gui.xibao-fly.snows": "Snows",
+	"gui.xibao-fly.flowers": "Flowers",
+	"gui.xibao-fly.change_stage": "Change Stage"
 }

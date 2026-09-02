@@ -9,24 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 public class ParticleManager {
-    private static final int[] THROWING_TARGETS = new int[] { //鼠标点击时粒子的动量
-            -100,
-            -97,
-            -90,
-            -85,
-            -70,
-            -50,
-            -20,
-            -5,
-            5,
-            20,
-            50,
-            70,
-            85,
-            90,
-            97,
-            100
-    };
+    private static final int[] THROWING_TARGETS = new int[]
+            {-100, -97, -90, -85, -70, -50, -20, -5, 5, 20, 50, 70, 85, 90, 97, 100};
     private static final Random rng = new Random();
     private static List<Particle> particles;
     private static boolean isSetup;
@@ -42,6 +26,8 @@ public class ParticleManager {
     }
     
     public static void tick() {
+        if (particles == null) return;
+        
         particles.forEach(p -> p.tick(rng));
         
         //控制雪花的数量
@@ -53,11 +39,11 @@ public class ParticleManager {
                     height
             ));
         }
-        
-        XibaoFlyClient.LOGGER.info("Ticking. " + particles.size() + "密度：" + width * height / 1024);
     }
     
     public static void onMouseClick(int eventX, int eventY) {
+        if (particles == null) return;
+        
         for (int i = 0; i < 16; i++) {
             Particle chosen = new Particle(textures[rng.nextInt(0, textures.length)], rng, width, height);
             chosen.onMouseClick(eventX, eventY, (THROWING_TARGETS[i] / 3) + rng.nextInt(-5, 6));
@@ -66,23 +52,34 @@ public class ParticleManager {
     }
     
     public static void render(GuiGraphicsExtractor graphics) {
+        if (particles == null) return;
+        
         particles.forEach(p -> p.render(graphics));
     }
     
     public static void clear() {
-        particles.clear();
+        if (particles != null) particles.clear();
         particles = null;
         isSetup = false;
     }
     
     public static void clearParticles() {
+        if (particles == null) return;
+        
         particles.clear();
+    }
+    
+    public static void changeTexture(Identifier[] textures) {
+        if (particles == null) return;
+        
+        ParticleManager.textures = textures;
+        particles.forEach(p -> p.changeTexture(textures[rng.nextInt(0, textures.length)]));
     }
     
     static class Particle {
         int x, y, center, range, target, clickY; //X坐标、Y坐标、正弦函数的中心、正弦函数的摆幅，被掷出时的目标x增量
         boolean isCreatedViaClick;
-        final Identifier texture;
+        Identifier texture;
         final int width, height;
         
         Particle(Identifier texture, Random rng, int width, int height) {
@@ -119,8 +116,6 @@ public class ParticleManager {
                 clickY = 0;
                 isCreatedViaClick = false;
             }
-            
-            if (isCreatedViaClick) XibaoFlyClient.LOGGER.info("Ticking click-created particle " + hashCode());
         }
         
         public void onMouseClick(int eventX, int eventY, int targetX) {
@@ -145,6 +140,10 @@ public class ParticleManager {
                     4,
                     4
             );
+        }
+        
+        public void changeTexture(Identifier texture1) {
+            texture = texture1;
         }
     }
 }
