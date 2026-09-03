@@ -7,7 +7,6 @@
 		]
 	},
 	"bgm.beibao": {
-		"subtitle": "sound.xibao-fly.yijianmei",
 		"sounds": [
 			"xibao-fly:bgm/yijianmei"
 		]
