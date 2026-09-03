@@ -10,7 +10,7 @@ on:
       - Fabric
   pull_request:
     branches:
-      - *
+      - Fabric
 
 jobs:
   build:
