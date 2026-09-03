@@ -4,7 +4,13 @@
 # against bad commits.
 
 name: build
-on: [pull_request, push]
+on:
+  push:
+    branches:
+      - Fabric
+  pull_request:
+    branches:
+      - *
 
 jobs:
   build:
