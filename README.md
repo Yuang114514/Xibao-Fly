@@ -38,4 +38,4 @@ Build per push available at [Actions Page](https://github.com/Yuang114514/Xibao-
 
 _Working rapidly, coming soon_
 
-~~i wanna f**k these modrinth moderators because they are too slow~~
+~~These fucking Modrinth moderators need to hurry the fuck up......~~
