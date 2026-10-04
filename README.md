@@ -36,6 +36,6 @@ Build per push available at [Actions Page](https://github.com/Yuang114514/Xibao-
 
 ### Download from Modrinth
 
-_Working rapidly, coming soon_
+_coming soon_
 
-~~These fucking Modrinth moderators need to hurry the fuck up......~~
+~~How dare do these fucking moderators think it is AI generated~~
